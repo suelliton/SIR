@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "611208649430",
+    "firebase_url": "https://sir-app-f6cd5.firebaseio.com",
+    "project_id": "sir-app-f6cd5",
+    "storage_bucket": "sir-app-f6cd5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:611208649430:android:f7d99b4ee4481f39",
+        "android_client_info": {
+          "package_name": "com.example.suelliton.sir"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "611208649430-fasnqdon8o85b56mdn468l9ur95fif6f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.suelliton.sir",
+            "certificate_hash": "c13a069d39e68db2752498652e0fc6700aac09e3"
+          }
+        },
+        {
+          "client_id": "611208649430-kegib58jf788t0u28ibfadgjs14qqrcj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPrRay8jr1hEIYCRzHqmUy8UVUCvDpru0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "611208649430-kegib58jf788t0u28ibfadgjs14qqrcj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
