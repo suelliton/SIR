@@ -10,13 +10,27 @@ public class Node {
     private String temperatura;
     private String umidade_ar;
     private String umidade_solo;
+    private String status;
 
-    public Node(int id, String nome, String temperatura, String umidade_ar, String umidade_solo) {
+    public Node(int id, String nome, String temperatura, String umidade_ar, String umidade_solo, String status) {
         this.id = id;
         this.nome = nome;
         this.temperatura = temperatura;
         this.umidade_ar = umidade_ar;
         this.umidade_solo = umidade_solo;
+        this.status = status;
+    }
+
+    public Node(){
+
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getId() {
