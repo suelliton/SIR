@@ -19,7 +19,7 @@ public class FixedTabsPageAdapter extends FragmentPagerAdapter {
             case 0:
                 return new FragmentRecycler();
             case 1:
-                return new FragmentRecycler();
+                return new FragmentGrafico();
             case 2:
                 return new FragmentRecycler();
             default:

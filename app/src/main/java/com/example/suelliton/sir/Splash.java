@@ -22,7 +22,7 @@ public class Splash extends AppCompatActivity implements Runnable {
         //createReferences();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Handler handler = new Handler();
-        handler.postDelayed(this, 500);
+        handler.postDelayed(this, 50);
     }
 
     @Override

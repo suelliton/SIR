@@ -34,36 +34,62 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageView
 
-                android:src="@drawable/ic_termometro"
-                android:layout_width="50dp"
-                android:layout_height="50dp" />
-            <TextView
+            <LinearLayout
+                android:id="@+id/row_clicavel"
                 android:layout_weight="3"
-                android:id="@+id/text_temperatura"
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Temperatura"/>
-            <TextView
-                android:layout_weight="2"
-                android:id="@+id/text_umidade_ar"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/ic_termometro"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_weight="3"
+                    android:id="@+id/text_temperatura"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="29"/>
+                <ImageView
+                    android:src="@drawable/ic_umidade_ar"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_weight="2"
+                    android:id="@+id/text_umidade_ar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="70"/>
+                <ImageView
+                    android:src="@drawable/ic_umidade_solo"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_weight="2"
+                    android:id="@+id/text_umidade_solo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="50"/>
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Umid. ar"/>
-            <TextView
-                android:layout_weight="2"
-                android:id="@+id/text_umidade_solo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Umid. solo"/>
-            <TextView
-                android:layout_weight="3"
-                android:id="@+id/text_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Status"/>
+                android:layout_height="wrap_content">
+                <Switch
+                    android:id="@+id/switch_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Status" />
+            </LinearLayout>
         </LinearLayout>
+
+
+
 
     </LinearLayout>
 

@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
+import android.widget.Toast;
 
 
 import com.example.suelliton.sir.model.Node;
@@ -85,17 +87,13 @@ public class FragmentRecycler extends Fragment {
         });
         nodeReference.addChildEventListener(childEventNode);
 
-
-
-
-
-        /*recyclerView.addOnItemTouchListener(new MeuRecyclerViewClickListener(recyclerView.getContext(), recyclerView, new MeuRecyclerViewClickListener.OnItemClickListener() {
+/*
+      recyclerView.addOnItemTouchListener(new MeuRecyclerViewClickListener(recyclerView.getContext(), recyclerView, new MeuRecyclerViewClickListener.OnItemClickListener() {
 
             @Override
             public void onItemClick(View view, int position) {
                 MainActivity.tabLayout.getTabAt(1).select();
-                POSITION_CLICADO = position;
-                Log.i("position_clicado",POSITION_CLICADO+"");
+
             }
 
             @Override
