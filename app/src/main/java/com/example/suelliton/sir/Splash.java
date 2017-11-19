@@ -16,7 +16,7 @@ public class Splash extends AppCompatActivity implements Runnable {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_abertura);
+        setContentView(R.layout.activity_splash);
         database = FirebaseDatabase.getInstance();
         nodeReference = database.getReference("Node");
         //createReferences();

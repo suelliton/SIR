@@ -47,6 +47,7 @@
                     android:layout_height="35dp" />
                 <TextView
                     android:layout_weight="3"
+                    android:textSize="20dp"
                     android:id="@+id/text_temperatura"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -56,6 +57,7 @@
                     android:layout_width="50dp"
                     android:layout_height="35dp" />
                 <TextView
+                    android:textSize="20dp"
                     android:layout_weight="2"
                     android:id="@+id/text_umidade_ar"
                     android:layout_width="wrap_content"
@@ -66,6 +68,7 @@
                     android:layout_width="50dp"
                     android:layout_height="35dp" />
                 <TextView
+                    android:textSize="20dp"
                     android:layout_weight="2"
                     android:id="@+id/text_umidade_solo"
                     android:layout_width="wrap_content"
