@@ -53,19 +53,24 @@ public class FragmentRecycler extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Node node =  dataSnapshot.getValue(Node.class);
+                Log.i("key",dataSnapshot.getKey());
+                node.setKey(dataSnapshot.getKey());
+
                 listaNodes.add(node);
+
+
                 nodeAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Node modificado = dataSnapshot.getValue(Node.class);
-                for(int i = 0 ; i< listaNodes.size(); i++){
+               /* for(int i = 0 ; i< listaNodes.size(); i++){
                   if(listaNodes.get(i).getNome().equals(modificado.getNome())){
                     listaNodes.set(i,modificado);
                     nodeAdapter.notifyDataSetChanged();
                   }
-                }
+                }*/
 
 
             }

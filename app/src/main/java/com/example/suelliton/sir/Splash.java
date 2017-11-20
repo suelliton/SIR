@@ -31,7 +31,7 @@ public class Splash extends AppCompatActivity implements Runnable {
         finish();
     }
     public void  createReferences(){
-        Node node = new Node(1,"Raspberry","29","70","60","ligado");
+        Node node = new Node(1,"Raspberry3","30","30","30","ligado");
         nodeReference.push().setValue(node);
     }
 

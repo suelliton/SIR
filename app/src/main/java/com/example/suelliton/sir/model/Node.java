@@ -11,6 +11,15 @@ public class Node {
     private String umidade_ar;
     private String umidade_solo;
     private String status;
+    private String key;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public Node(int id, String nome, String temperatura, String umidade_ar, String umidade_solo, String status) {
         this.id = id;

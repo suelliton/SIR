@@ -31,6 +31,7 @@ public class NodeAdapter extends RecyclerView.Adapter {
     public NodeAdapter(Context context, List<Node> listaNodes){
         this.context = context;
         this.listaNodes = listaNodes;
+
     }
 
 
@@ -44,7 +45,7 @@ public class NodeAdapter extends RecyclerView.Adapter {
 
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         database = FirebaseDatabase.getInstance();
         nodeReference = database.getReference("Node");
 
@@ -59,9 +60,12 @@ public class NodeAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View view) {
                 if(nodeHolder.node_status.isChecked()){
-                    nodeReference.child("Raspberry").child("status").setValue("ligado");
+                    nodeReference.child(listaNodes.get(position).getKey()).child("status").setValue("ligado");
+                    nodeHolder.row.setBackgroundColor(Color.parseColor("#0df009"));
                 }else{
-                    nodeReference.child("Raspberry").child("status").setValue("desligado");
+                    nodeReference.child(listaNodes.get(position).getKey()).child("status").setValue("desligado");
+                    nodeHolder.row.setBackgroundColor(Color.parseColor("#E0FFFF"));
+
                 }
             }
         });
@@ -88,21 +92,14 @@ public class NodeAdapter extends RecyclerView.Adapter {
         });*/
 
 
-        Log.i("status",listaNodes.get(position).getStatus());
-        if(listaNodes.get(position).getStatus().equals("ligado")){
-            nodeHolder.row.setBackgroundColor(Color.parseColor("#0df009"));
 
-        }else{
-            nodeHolder.row.setBackgroundColor(Color.parseColor("#ce93d8"));
-
-        }
 
 
     }
 
     @Override
     public int getItemCount() {
-        return listaNodes.size()-1;
+        return listaNodes.size() - (listaNodes.size()/2);
     }
     @Override
     public long getItemId(int position) {

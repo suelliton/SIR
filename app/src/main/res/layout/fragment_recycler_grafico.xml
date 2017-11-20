@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.widget.LinearLayout
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
-        android:layout_height="200dip"
-        android:id="@+id/graph" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_height="180dip"
+        android:id="@+id/graph_temperatura" />
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="match_parent"
+        android:layout_height="180dip"
+        android:id="@+id/graph_umidade_ar" />
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="match_parent"
+        android:layout_height="180dip"
+        android:id="@+id/graph_umidade_solo" />
+</android.widget.LinearLayout>

@@ -1,6 +1,5 @@
 package com.example.suelliton.sir;
 
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -22,10 +21,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.Inflater;
@@ -39,7 +40,9 @@ public class FragmentGrafico extends Fragment {
     private FirebaseDatabase database ;
     private DatabaseReference nodeReference ;
     private ChildEventListener childEventNode;
-    DataPoint dataPoint[];
+    DataPoint dataPointTemperatura[];
+    DataPoint dataPointUmidaddeAr[];
+    DataPoint dataPointUmidadeSolo[];
     private List<Node> listaNodes = new ArrayList<>();
 
 
@@ -59,12 +62,19 @@ public class FragmentGrafico extends Fragment {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                if(listaNodes.size() < 4 ){
-                    Node node = dataSnapshot.getValue(Node.class);
+                Node node = dataSnapshot.getValue(Node.class);
+                if(listaNodes.size() < 24 ){
                     listaNodes.add(node);
-                }else{
                     setaGrafico(listaNodes);
-                    listaNodes.removeAll(listaNodes);
+                }else{
+
+                    setaGrafico(listaNodes);
+                    for(int i =0;i<23;i++){
+                        listaNodes.set(i,listaNodes.get(i+1));
+                    }
+                    listaNodes.set(23,node);
+                    setaGrafico(listaNodes);
+                    // listaNodes.removeAll(listaNodes);
                 }
 
             }
@@ -92,15 +102,56 @@ public class FragmentGrafico extends Fragment {
         return view;
     }
     public void setaGrafico(List<Node> lista){
-        dataPoint = new DataPoint[lista.size()];
+        dataPointTemperatura = new DataPoint[lista.size()];
+        dataPointUmidaddeAr = new DataPoint[lista.size()];
+        dataPointUmidadeSolo = new DataPoint[lista.size()];
         int cont = 0;
         for(Node n:lista){
-            dataPoint[cont] = new DataPoint(cont, Double.parseDouble(n.getTemperatura()));
+            dataPointTemperatura[cont] = new DataPoint(cont, Double.parseDouble(n.getTemperatura()));
+            dataPointUmidaddeAr[cont] = new DataPoint(cont,Double.parseDouble(n.getUmidade_ar()));
+            dataPointUmidadeSolo[cont] = new DataPoint(cont,Double.parseDouble(n.getUmidade_solo()));
             cont ++;
         }
-        GraphView graph = (GraphView) view.findViewById(R.id.graph);
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoint);
-        graph.addSeries(series);
+        GraphView graphTemperatura = (GraphView) view.findViewById(R.id.graph_temperatura);
+        GraphView graphUmidadeAr = (GraphView) view.findViewById(R.id.graph_umidade_ar);
+        GraphView graphUmidadeSolo = (GraphView) view.findViewById(R.id.graph_umidade_solo);
+
+        setTamanhoGrafico(graphTemperatura,0,24,0,50);
+        setTamanhoGrafico(graphUmidadeAr,0,24,0,100);
+        setTamanhoGrafico(graphUmidadeSolo,0,24,0,100);
+
+
+        LineGraphSeries<DataPoint> seriesTemperatura = new LineGraphSeries<>(dataPointTemperatura);
+        LineGraphSeries<DataPoint> seriesUmidadeAr = new LineGraphSeries<>(dataPointUmidaddeAr);
+        LineGraphSeries<DataPoint> seriesUmidadeSolo = new LineGraphSeries<>(dataPointUmidadeSolo);
+
+      /*  seriesTemperatura.setAnimated(true);
+        seriesUmidadeAr.setAnimated(true);
+        seriesUmidadeSolo.setAnimated(true);*/
+
+        graphTemperatura.removeAllSeries();
+        graphUmidadeAr.removeAllSeries();
+        graphUmidadeSolo.removeAllSeries();
+
+        graphTemperatura.setTitle("Temperatura");
+        graphUmidadeAr.setTitle("Umidade do ar");
+        graphUmidadeSolo.setTitle("Umidade do solo");
+
+        graphTemperatura.addSeries(seriesTemperatura);
+        graphUmidadeAr.addSeries(seriesUmidadeAr);
+        graphUmidadeSolo.addSeries(seriesUmidadeSolo);
+    }
+
+    public void setTamanhoGrafico(GraphView graphView,int Xmin,int Xmax,int Ymin,int Ymax){
+        graphView.getViewport().setYAxisBoundsManual(true);
+        graphView.getViewport().setMinY(Ymin);
+        graphView.getViewport().setMaxY(Ymax);
+
+        graphView.getViewport().setXAxisBoundsManual(true);
+        graphView.getViewport().setMinX(Xmin);
+        graphView.getViewport().setMaxX(Xmax);
+
+
     }
 
 

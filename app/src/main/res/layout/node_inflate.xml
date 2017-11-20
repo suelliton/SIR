@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="5dp"
-    app:cardBackgroundColor="@color/cardview_light_background"
+    app:cardBackgroundColor="#E0FFFF"
     android:layout_margin="5dp"
     android:focusable="true"
     android:clickable="true"
