@@ -50,9 +50,9 @@ public class NodeAdapter extends RecyclerView.Adapter {
         nodeReference = database.getReference("Node");
 
         final NodeViewHolder nodeHolder = (NodeViewHolder) holder;
-        nodeHolder.node_temperatura.setText(listaNodes.get(position).getTemperatura());
-        nodeHolder.node_umidade_ar.setText(listaNodes.get(position).getUmidade_ar());
-        nodeHolder.node_umidade_solo.setText(listaNodes.get(position).getUmidade_solo());
+        nodeHolder.node_temperatura.setText(listaNodes.get(position).getTemperatura()+"°");
+        nodeHolder.node_umidade_ar.setText(listaNodes.get(position).getUmidade_ar()+"%");
+        nodeHolder.node_umidade_solo.setText(listaNodes.get(position).getUmidade_solo()+"%");
         nodeHolder.node_nome.setText(listaNodes.get(position).getNome());
 
 
