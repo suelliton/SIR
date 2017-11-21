@@ -16,7 +16,10 @@ import com.example.suelliton.sir.model.Node;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.suelliton.sir.FragmentRecycler.listaNodes;
 
 /**
  * Created by suelliton on 18/11/17.
@@ -24,13 +27,14 @@ import java.util.List;
 
 public class NodeAdapter extends RecyclerView.Adapter {
     Context context;
-    List<Node> listaNodes;
+
+
     private FirebaseDatabase database ;
     private DatabaseReference nodeReference ;
 
-    public NodeAdapter(Context context, List<Node> listaNodes){
+    public NodeAdapter(Context context){
         this.context = context;
-        this.listaNodes = listaNodes;
+
 
     }
 
@@ -99,7 +103,7 @@ public class NodeAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return listaNodes.size() - (listaNodes.size()/2);
+        return listaNodes.size();
     }
     @Override
     public long getItemId(int position) {

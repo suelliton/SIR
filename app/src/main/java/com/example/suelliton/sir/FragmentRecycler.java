@@ -33,6 +33,7 @@ public class FragmentRecycler extends Fragment {
     private FirebaseDatabase database ;
     private DatabaseReference nodeReference ;
     private ChildEventListener childEventNode;
+    public static List<Node> listaNodes;
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
         database = FirebaseDatabase.getInstance();
@@ -41,31 +42,43 @@ public class FragmentRecycler extends Fragment {
         view = inflater.inflate(R.layout.fragment_recycler_inflate,container,false);
 
         final RecyclerView recyclerView =  view.findViewById(R.id.recycler);
-        final List<Node> listaNodes = new ArrayList<>();
+        listaNodes = new ArrayList<>();
 
-        final NodeAdapter nodeAdapter = new NodeAdapter(view.getContext(),listaNodes);
+        final NodeAdapter nodeAdapter = new NodeAdapter(view.getContext());
         recyclerView.setAdapter(nodeAdapter);
         RecyclerView.LayoutManager layout = new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layout);
 
-
+        final List<String> keys = new ArrayList<>();
         childEventNode = nodeReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Node node =  dataSnapshot.getValue(Node.class);
-                Log.i("key",dataSnapshot.getKey());
+                Node node = dataSnapshot.getValue(Node.class);
+                Log.i("key", dataSnapshot.getKey());
                 node.setKey(dataSnapshot.getKey());
 
-                listaNodes.add(node);
+                if(keys.size() > 0){
+                    if(!keys.contains(dataSnapshot.getKey())){
+                      keys.add(dataSnapshot.getKey());
+                        listaNodes.add(node);
+                    }
+
+                }else{
+                    keys.add(dataSnapshot.getKey());
+                    listaNodes.add(node);
+                }
+
 
 
                 nodeAdapter.notifyDataSetChanged();
+
+
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Node modificado = dataSnapshot.getValue(Node.class);
-               /* for(int i = 0 ; i< listaNodes.size(); i++){
+             /*   for(int i = 0 ; i< listaNodes.size(); i++){
                   if(listaNodes.get(i).getNome().equals(modificado.getNome())){
                     listaNodes.set(i,modificado);
                     nodeAdapter.notifyDataSetChanged();
