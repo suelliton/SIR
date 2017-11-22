@@ -30,6 +30,19 @@ public class Node {
         this.status = status;
     }
 
+    @Override
+    public String toString() {
+        return "Node{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", temperatura='" + temperatura + '\'' +
+                ", umidade_ar='" + umidade_ar + '\'' +
+                ", umidade_solo='" + umidade_solo + '\'' +
+                ", status='" + status + '\'' +
+                ", key='" + key + '\'' +
+                '}';
+    }
+
     public Node(){
 
     }

@@ -1,6 +1,5 @@
 package com.example.suelliton.sir;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
@@ -19,24 +18,25 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.suelliton.sir.FragmentRecycler.listaNodes;
-
 /**
  * Created by suelliton on 18/11/17.
  */
 
 public class NodeAdapter extends RecyclerView.Adapter {
     Context context;
-
+    private List<Node> listaNodes;
 
     private FirebaseDatabase database ;
     private DatabaseReference nodeReference ;
 
-    public NodeAdapter(Context context){
+    public NodeAdapter(Context context, List<Node> aux){
         this.context = context;
 
 
+        this.listaNodes = aux;
+
     }
+
 
 
     @Override
@@ -81,19 +81,6 @@ public class NodeAdapter extends RecyclerView.Adapter {
             }
         });
 
-
-
-        /*nodeHolder.node_status.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
-            @Override
-            public void onViewAttachedToWindow(View view) {
-                nodeReference.child("Raspberry").child("status").setValue("ligado");
-            }
-
-            @Override
-            public void onViewDetachedFromWindow(View view) {
-                nodeReference.child("Raspberry").child("status").setValue("desligado");
-            }
-        });*/
 
 
 

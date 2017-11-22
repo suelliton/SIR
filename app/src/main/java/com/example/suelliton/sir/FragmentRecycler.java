@@ -1,5 +1,6 @@
 package com.example.suelliton.sir;
 
+import android.renderscript.Sampler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +31,14 @@ import java.util.List;
 
 public class FragmentRecycler extends Fragment {
     View view;
-    static int POSITION_CLICADO ;
+    private NodeAdapter nodeAdapter;
     private FirebaseDatabase database ;
     private DatabaseReference nodeReference ;
-    private ChildEventListener childEventNode;
-    public static List<Node> listaNodes;
+
+    private ValueEventListener valueEventNode;
+    private List<Node> listaNodes;
+    RecyclerView recyclerView;
+
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
         database = FirebaseDatabase.getInstance();
@@ -41,61 +46,28 @@ public class FragmentRecycler extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_recycler_inflate,container,false);
 
-        final RecyclerView recyclerView =  view.findViewById(R.id.recycler);
+        recyclerView =  view.findViewById(R.id.recycler);
         listaNodes = new ArrayList<>();
 
-        final NodeAdapter nodeAdapter = new NodeAdapter(view.getContext());
+
+        nodeAdapter = new NodeAdapter(view.getContext(),listaNodes);
         recyclerView.setAdapter(nodeAdapter);
         RecyclerView.LayoutManager layout = new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layout);
 
-        final List<String> keys = new ArrayList<>();
-        childEventNode = nodeReference.addChildEventListener(new ChildEventListener() {
+
+        database.getReference().child("Node").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Node node = dataSnapshot.getValue(Node.class);
-                Log.i("key", dataSnapshot.getKey());
-                node.setKey(dataSnapshot.getKey());
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                listaNodes.removeAll(listaNodes);
 
-                if(keys.size() > 0){
-                    if(!keys.contains(dataSnapshot.getKey())){
-                      keys.add(dataSnapshot.getKey());
-                        listaNodes.add(node);
-                    }
-
-                }else{
-                    keys.add(dataSnapshot.getKey());
-                    listaNodes.add(node);
+                for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
+                    Node node = snapshot.getValue(Node.class);
+                    node.setKey(snapshot.getKey().toString());
+                    Log.i("nodes",node.getKey()+"");
+                   listaNodes.add(node);
                 }
-
-
-
                 nodeAdapter.notifyDataSetChanged();
-
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Node modificado = dataSnapshot.getValue(Node.class);
-             /*   for(int i = 0 ; i< listaNodes.size(); i++){
-                  if(listaNodes.get(i).getNome().equals(modificado.getNome())){
-                    listaNodes.set(i,modificado);
-                    nodeAdapter.notifyDataSetChanged();
-                  }
-                }*/
-
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
             }
 
             @Override
@@ -103,23 +75,13 @@ public class FragmentRecycler extends Fragment {
 
             }
         });
-        nodeReference.addChildEventListener(childEventNode);
-
-/*
-      recyclerView.addOnItemTouchListener(new MeuRecyclerViewClickListener(recyclerView.getContext(), recyclerView, new MeuRecyclerViewClickListener.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(View view, int position) {
-                MainActivity.tabLayout.getTabAt(1).select();
-
-            }
-
-            @Override
-            public void onItemLongClick(View view, final int position) {
 
 
-            }
-        }));*/
+
+
+
+
+
 
 
 
@@ -129,13 +91,16 @@ public class FragmentRecycler extends Fragment {
 
         return view;
     }
+    private void getAllTask(DataSnapshot dataSnapshot){
 
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+            final Node node = dataSnapshot.getValue(Node.class);
+            listaNodes.add(node);
+            NodeAdapter na = new NodeAdapter(view.getContext(), listaNodes);
+            recyclerView.setAdapter(na);
 
     }
+
+
 
 
 }
