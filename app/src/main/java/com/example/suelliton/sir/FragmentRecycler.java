@@ -29,7 +29,7 @@ import java.util.List;
 
 public class FragmentRecycler extends Fragment {
     View view;
-    static int POSITION_CLICADO ;
+    NodeAdapter nodeAdapter;
     private FirebaseDatabase database ;
     private DatabaseReference nodeReference ;
     private ChildEventListener childEventNode;
@@ -44,11 +44,39 @@ public class FragmentRecycler extends Fragment {
         final RecyclerView recyclerView =  view.findViewById(R.id.recycler);
         listaNodes = new ArrayList<>();
 
-        final NodeAdapter nodeAdapter = new NodeAdapter(view.getContext());
+        nodeAdapter = new NodeAdapter(view.getContext());
         recyclerView.setAdapter(nodeAdapter);
         RecyclerView.LayoutManager layout = new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layout);
 
+
+/*      recyclerView.addOnItemTouchListener(new MeuRecyclerViewClickListener(recyclerView.getContext(), recyclerView, new MeuRecyclerViewClickListener.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(View view, int position) {
+                MainActivity.tabLayout.getTabAt(1).select();
+
+            }
+
+            @Override
+            public void onItemLongClick(View view, final int position) {
+
+
+            }
+        }));*/
+
+
+
+
+
+
+
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         final List<String> keys = new ArrayList<>();
         childEventNode = nodeReference.addChildEventListener(new ChildEventListener() {
             @Override
@@ -59,7 +87,7 @@ public class FragmentRecycler extends Fragment {
 
                 if(keys.size() > 0){
                     if(!keys.contains(dataSnapshot.getKey())){
-                      keys.add(dataSnapshot.getKey());
+                        keys.add(dataSnapshot.getKey());
                         listaNodes.add(node);
                     }
 
@@ -104,32 +132,17 @@ public class FragmentRecycler extends Fragment {
             }
         });
         nodeReference.addChildEventListener(childEventNode);
-
-/*
-      recyclerView.addOnItemTouchListener(new MeuRecyclerViewClickListener(recyclerView.getContext(), recyclerView, new MeuRecyclerViewClickListener.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(View view, int position) {
-                MainActivity.tabLayout.getTabAt(1).select();
-
-            }
-
-            @Override
-            public void onItemLongClick(View view, final int position) {
-
-
-            }
-        }));*/
-
-
-
-
-
-
-
-        return view;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(childEventNode != null) {
+            nodeReference.removeEventListener(childEventNode);
+            childEventNode = null;
+        }
+
+    }
 
     @Override
     public void onDestroyView() {
