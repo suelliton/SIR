@@ -77,10 +77,11 @@ public class NodeAdapter extends RecyclerView.Adapter {
             }
         });
 
+        final String clicado = listaNodes.get(position).getKey();
         nodeHolder.row_clicavel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                keyClicado = listaNodes.get(position).getKey();
+                keyClicado = clicado;
                 Log.i("clicado",keyClicado);
                 MainActivity.tabLayout.getTabAt(1).select();
 

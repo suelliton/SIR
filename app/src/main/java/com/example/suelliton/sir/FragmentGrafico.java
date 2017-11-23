@@ -55,9 +55,9 @@ public class FragmentGrafico extends Fragment {
     DataPoint dataPointUmidaddeAr[];
     DataPoint dataPointUmidadeSolo[];
 
-    HistoricoTemperatura historicoTemperatura;
-    HistoricoUmidadeAr historicoUmidadeAr;
-    HistoricoUmidadeSolo historicoUmidadeSolo;
+    public static HistoricoTemperatura historicoTemperatura;
+    public static HistoricoUmidadeAr historicoUmidadeAr;
+    public static HistoricoUmidadeSolo historicoUmidadeSolo;
 
 
     RadioGroup radioGroup ;
@@ -67,6 +67,7 @@ public class FragmentGrafico extends Fragment {
 
     public static String keyClicado= "-Kza1ZqNHZY6Mk7nQ4jW";
 
+    int time = 5000;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -118,11 +119,7 @@ public class FragmentGrafico extends Fragment {
         });
         nodeReference.addChildEventListener(childEventNode);
 */
-
-
-
-
-
+    atualizaGrafico();
 
 
 
@@ -155,8 +152,21 @@ public class FragmentGrafico extends Fragment {
 
 
 
-
         return view;
+    }
+
+    public void atualizaGrafico(){
+        Handler handle = new Handler();
+        handle.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                setaGrafico2(historicoTemperatura,historicoUmidadeAr,historicoUmidadeSolo);
+                time = 500;
+                atualizaGrafico();
+            }
+        }, time);
+
     }
 
     @Override
@@ -174,39 +184,15 @@ public class FragmentGrafico extends Fragment {
 
 
 
-        childValueNode = nodeReference.child("Node/").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<String> dia = new ArrayList<>();
-                for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
 
-                    Log.i("clicado",snapshot.getKey().toString()+"");
-                    if (snapshot.getKey().equals(keyClicado)) {
 
-                        historicoTemperatura = snapshot.getValue(Node.class).getHistoricoTemperatura();
-                        historicoUmidadeAr = snapshot.getValue(Node.class).getHistoricoUmidadeAr();
-                        historicoUmidadeSolo = snapshot.getValue(Node.class).getHistoricoUmidadeSolo();
 
-                        Log.i("historico", "temperatura:" + historicoTemperatura.toString() + "umidade" + historicoUmidadeAr.toString() + "solo" + historicoUmidadeSolo.toString());
-                        setaGrafico2(historicoTemperatura, historicoUmidadeAr, historicoUmidadeSolo);
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        nodeReference.addValueEventListener(childValueNode);
 
 
 
     }
 
-    public void setaGrafico2(HistoricoTemperatura historicoTemperatura, HistoricoUmidadeAr historicoUmidadeAr, HistoricoUmidadeSolo historicoUmidadeSolo){
+    public  void setaGrafico2(HistoricoTemperatura historicoTemperatura, HistoricoUmidadeAr historicoUmidadeAr, HistoricoUmidadeSolo historicoUmidadeSolo){
 
        radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
        radioButtonDia = (RadioButton) view.findViewById(R.id.radio_dia);
@@ -353,6 +339,6 @@ public class FragmentGrafico extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        nodeReference.removeEventListener(childValueNode);
+       // nodeReference.removeEventListener(childValueNode);
     }
 }
