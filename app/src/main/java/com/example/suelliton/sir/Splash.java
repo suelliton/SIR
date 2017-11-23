@@ -6,19 +6,27 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.suelliton.sir.model.HistoricoTemperatura;
+import com.example.suelliton.sir.model.HistoricoUmidadeAr;
+import com.example.suelliton.sir.model.HistoricoUmidadeSolo;
 import com.example.suelliton.sir.model.Node;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Splash extends AppCompatActivity implements Runnable {
     private FirebaseDatabase database ;
     private DatabaseReference nodeReference ;
+    private DatabaseReference historicoReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         database = FirebaseDatabase.getInstance();
         nodeReference = database.getReference("Node");
+        historicoReference = database.getReference("Historico");
         //createReferences();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Handler handler = new Handler();
@@ -31,8 +39,31 @@ public class Splash extends AppCompatActivity implements Runnable {
         finish();
     }
     public void  createReferences(){
-        Node node = new Node(1,"Raspberry3","30","30","30","ligado");
+
+
+        ArrayList<String> dia = new ArrayList<>();
+        ArrayList<String> hora = new ArrayList<>();
+        ArrayList<String> minuto = new ArrayList<>();
+        Random gerador = new Random();
+        for(int i=0;i<24;i++){
+            dia.add(String.valueOf(gerador.nextInt(40)));
+        }
+        for(int i=0;i<60;i++){
+            hora.add(String.valueOf(gerador.nextInt(40)));
+        }
+        for(int i=0;i<60;i++){
+            minuto.add(String.valueOf(gerador.nextInt(40)));
+        }
+
+
+
+        HistoricoTemperatura historicoTemperatura = new HistoricoTemperatura(dia,hora,minuto);
+        HistoricoUmidadeAr historicoUmidadeAr = new HistoricoUmidadeAr(dia,hora,minuto);
+        HistoricoUmidadeSolo historicoUmidadeSolo = new HistoricoUmidadeSolo(dia,hora,minuto);
+
+        Node node = new Node(1,"Raspberry3","30","30","30","ligado",historicoTemperatura,historicoUmidadeAr,historicoUmidadeSolo);
         nodeReference.push().setValue(node);
+
     }
 
     @Override

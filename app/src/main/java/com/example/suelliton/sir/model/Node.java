@@ -1,5 +1,8 @@
 package com.example.suelliton.sir.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Aluno on 17/11/2017.
  */
@@ -12,6 +15,48 @@ public class Node {
     private String umidade_solo;
     private String status;
     private String key;
+    private HistoricoTemperatura historicoTemperatura;
+    private HistoricoUmidadeAr historicoUmidadeAr;
+    private HistoricoUmidadeSolo historicoUmidadeSolo;
+
+    public Node(int id, String nome, String temperatura, String umidade_ar, String umidade_solo, String status, HistoricoTemperatura historicoTemperatura, HistoricoUmidadeAr historicoUmidadeAr, HistoricoUmidadeSolo historicoUmidadeSolo) {
+        this.id = id;
+        this.nome = nome;
+        this.temperatura = temperatura;
+        this.umidade_ar = umidade_ar;
+        this.umidade_solo = umidade_solo;
+        this.status = status;
+
+        this.historicoTemperatura = historicoTemperatura;
+        this.historicoUmidadeAr = historicoUmidadeAr;
+        this.historicoUmidadeSolo = historicoUmidadeSolo;
+    }
+
+
+
+    public HistoricoTemperatura getHistoricoTemperatura() {
+        return historicoTemperatura;
+    }
+
+    public void setHistoricoTemperatura(HistoricoTemperatura historicoTemperatura) {
+        this.historicoTemperatura = historicoTemperatura;
+    }
+
+    public HistoricoUmidadeAr getHistoricoUmidadeAr() {
+        return historicoUmidadeAr;
+    }
+
+    public void setHistoricoUmidadeAr(HistoricoUmidadeAr historicoUmidadeAr) {
+        this.historicoUmidadeAr = historicoUmidadeAr;
+    }
+
+    public HistoricoUmidadeSolo getHistoricoUmidadeSolo() {
+        return historicoUmidadeSolo;
+    }
+
+    public void setHistoricoUmidadeSolo(HistoricoUmidadeSolo historicoUmidadeSolo) {
+        this.historicoUmidadeSolo = historicoUmidadeSolo;
+    }
 
     public String getKey() {
         return key;
@@ -21,14 +66,6 @@ public class Node {
         this.key = key;
     }
 
-    public Node(int id, String nome, String temperatura, String umidade_ar, String umidade_solo, String status) {
-        this.id = id;
-        this.nome = nome;
-        this.temperatura = temperatura;
-        this.umidade_ar = umidade_ar;
-        this.umidade_solo = umidade_solo;
-        this.status = status;
-    }
 
     @Override
     public String toString() {

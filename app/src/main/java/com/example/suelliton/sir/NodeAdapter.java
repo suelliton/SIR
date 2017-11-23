@@ -18,6 +18,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.suelliton.sir.FragmentGrafico.keyClicado;
+
+
 /**
  * Created by suelliton on 18/11/17.
  */
@@ -77,7 +80,11 @@ public class NodeAdapter extends RecyclerView.Adapter {
         nodeHolder.row_clicavel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                keyClicado = listaNodes.get(position).getKey();
+                Log.i("clicado",keyClicado);
                 MainActivity.tabLayout.getTabAt(1).select();
+
+
             }
         });
 

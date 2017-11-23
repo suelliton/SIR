@@ -88,7 +88,6 @@ public class FragmentRecycler extends Fragment {
 
 
 
-
         return view;
     }
     private void getAllTask(DataSnapshot dataSnapshot){
