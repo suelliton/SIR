@@ -68,7 +68,7 @@ public class FragmentGrafico extends Fragment {
     public static String keyClicado= "-Kza1ZqNHZY6Mk7nQ4jW";
 
     int time = 5000;
-
+    int op = 3;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         database = FirebaseDatabase.getInstance();
@@ -129,18 +129,21 @@ public class FragmentGrafico extends Fragment {
         radioButtonDia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                op = 1;
                 setaGrafico2(historicoTemperatura,historicoUmidadeAr,historicoUmidadeSolo);
             }
         });
         radioButtonHora.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                op = 2;
                 setaGrafico2(historicoTemperatura,historicoUmidadeAr,historicoUmidadeSolo);
             }
         });
         radioButtonMinuto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                op = 3;
                 setaGrafico2(historicoTemperatura,historicoUmidadeAr,historicoUmidadeSolo);
             }
         });
@@ -257,9 +260,28 @@ public class FragmentGrafico extends Fragment {
         GraphView graphUmidadeSolo = (GraphView) view.findViewById(R.id.graph_umidade_solo);
 
 
-        setTamanhoGrafico(graphTemperatura,0,24,0,50);
-        setTamanhoGrafico(graphUmidadeAr,0,24,0,100);
-        setTamanhoGrafico(graphUmidadeSolo,0,24,0,100);
+        switch (op){
+            case 1:
+
+                setTamanhoGrafico(graphTemperatura,0,24,0,50);
+                setTamanhoGrafico(graphUmidadeAr,0,24,0,100);
+                setTamanhoGrafico(graphUmidadeSolo,0,24,0,100);
+                break;
+            case 2:
+                setTamanhoGrafico(graphTemperatura,0,60,0,50);
+                setTamanhoGrafico(graphUmidadeAr,0,60,0,100);
+                setTamanhoGrafico(graphUmidadeSolo,0,60,0,100);
+                break;
+            case 3:
+                setTamanhoGrafico(graphTemperatura,0,60,0,50);
+                setTamanhoGrafico(graphUmidadeAr,0,60,0,100);
+                setTamanhoGrafico(graphUmidadeSolo,0,60,0,100);
+                break;
+            default:
+
+        }
+
+
 
         LineGraphSeries<DataPoint> seriesTemperatura = new LineGraphSeries<>(dataPointTemperatura);
         LineGraphSeries<DataPoint> seriesUmidadeAr = new LineGraphSeries<>(dataPointUmidaddeAr);

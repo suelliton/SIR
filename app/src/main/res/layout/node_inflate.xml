@@ -27,13 +27,14 @@
             android:gravity="center"
             android:textSize="20dp"
             android:id="@+id/text_nome"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:text="Nome" />
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp">
 
             <LinearLayout
                 android:id="@+id/row_clicavel"

@@ -25,8 +25,10 @@ public class Splash extends AppCompatActivity implements Runnable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         database = FirebaseDatabase.getInstance();
+        //database.setPersistenceEnabled(true);
         nodeReference = database.getReference("Node");
-        historicoReference = database.getReference("Historico");
+       // historicoReference = database.getReference("Historico");
+
         //createReferences();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Handler handler = new Handler();
