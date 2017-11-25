@@ -65,9 +65,9 @@ public class FragmentGrafico extends Fragment {
     RadioButton radioButtonHora ;
     RadioButton radioButtonMinuto ;
 
-    public static String keyClicado= "-Kza1ZqNHZY6Mk7nQ4jW";
-
-    int time = 5000;
+    public static String keyClicado = "";
+    private List<Node> listaNodes;
+    int time = 500;
     int op = 3;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,7 +76,7 @@ public class FragmentGrafico extends Fragment {
         view = inflater.inflate(R.layout.fragment_recycler_grafico,container,false);
         radioButtonMinuto = (RadioButton) view.findViewById(R.id.radio_minuto);
         radioButtonMinuto.toggle();
-
+        listaNodes = new ArrayList<>();
         /*childEventNode = nodeReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -119,8 +119,8 @@ public class FragmentGrafico extends Fragment {
         });
         nodeReference.addChildEventListener(childEventNode);
 */
-    atualizaGrafico();
 
+        atualizaGrafico();
 
 
         radioButtonDia = (RadioButton) view.findViewById(R.id.radio_dia);
@@ -166,6 +166,7 @@ public class FragmentGrafico extends Fragment {
 
                 setaGrafico2(historicoTemperatura,historicoUmidadeAr,historicoUmidadeSolo);
                 time = 500;
+
                 atualizaGrafico();
             }
         }, time);
@@ -189,10 +190,6 @@ public class FragmentGrafico extends Fragment {
 
 
 
-
-
-
-
     }
 
     public  void setaGrafico2(HistoricoTemperatura historicoTemperatura, HistoricoUmidadeAr historicoUmidadeAr, HistoricoUmidadeSolo historicoUmidadeSolo){
@@ -202,9 +199,9 @@ public class FragmentGrafico extends Fragment {
        radioButtonHora = (RadioButton) view.findViewById(R.id.radio_hora);
        radioButtonMinuto = (RadioButton) view.findViewById(R.id.radio_minuto);
 
-        ArrayList<String> listaTemperatura = new ArrayList<>();
-        ArrayList<String> listaUmidadeAr = new ArrayList<>();
-        ArrayList<String> listaUmidadeSolo = new ArrayList<>();
+        ArrayList<Integer> listaTemperatura = new ArrayList<>();
+        ArrayList<Integer> listaUmidadeAr = new ArrayList<>();
+        ArrayList<Integer> listaUmidadeSolo = new ArrayList<>();
 
        switch (radioGroup.getCheckedRadioButtonId()){
            case R.id.radio_dia:
@@ -237,18 +234,18 @@ public class FragmentGrafico extends Fragment {
 
 
         int cont = 0;
-        for (String s:listaTemperatura) {
-            dataPointTemperatura[cont] = new DataPoint(cont,Double.parseDouble(s));
+        for (int s:listaTemperatura) {
+            dataPointTemperatura[cont] = new DataPoint(cont,s);
             cont++;
         }
         cont = 0;
-        for (String s:listaUmidadeAr) {
-            dataPointUmidaddeAr[cont] = new DataPoint(cont,Double.parseDouble(s));
+        for (int s:listaUmidadeAr) {
+            dataPointUmidaddeAr[cont] = new DataPoint(cont,s);
             cont++;
         }
         cont = 0;
-        for (String s:listaUmidadeSolo) {
-            dataPointUmidadeSolo[cont] = new DataPoint(cont,Double.parseDouble(s));
+        for (int s:listaUmidadeSolo) {
+            dataPointUmidadeSolo[cont] = new DataPoint(cont,s);
             cont++;
         }
 
@@ -308,9 +305,9 @@ public class FragmentGrafico extends Fragment {
         dataPointUmidadeSolo = new DataPoint[lista.size()];
         int cont = 0;
         for(Node n:lista){
-            dataPointTemperatura[cont] = new DataPoint(cont, Double.parseDouble(n.getTemperatura()));
-            dataPointUmidaddeAr[cont] = new DataPoint(cont,Double.parseDouble(n.getUmidade_ar()));
-            dataPointUmidadeSolo[cont] = new DataPoint(cont,Double.parseDouble(n.getUmidade_solo()));
+            dataPointTemperatura[cont] = new DataPoint(cont, n.getTemperatura());
+            dataPointUmidaddeAr[cont] = new DataPoint(cont,n.getUmidade_ar());
+            dataPointUmidadeSolo[cont] = new DataPoint(cont,n.getUmidade_solo());
             cont ++;
         }
         GraphView graphTemperatura = (GraphView) view.findViewById(R.id.graph_temperatura);
@@ -361,6 +358,6 @@ public class FragmentGrafico extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-       // nodeReference.removeEventListener(childValueNode);
+       nodeReference.removeEventListener(childValueNode);
     }
 }

@@ -10,16 +10,16 @@ import java.util.List;
 public class Node {
     private int id;
     private String nome;
-    private String temperatura;
-    private String umidade_ar;
-    private String umidade_solo;
+    private Integer temperatura;
+    private Integer umidade_ar;
+    private Integer umidade_solo;
     private String status;
     private String key;
     private HistoricoTemperatura historicoTemperatura;
     private HistoricoUmidadeAr historicoUmidadeAr;
     private HistoricoUmidadeSolo historicoUmidadeSolo;
 
-    public Node(int id, String nome, String temperatura, String umidade_ar, String umidade_solo, String status, HistoricoTemperatura historicoTemperatura, HistoricoUmidadeAr historicoUmidadeAr, HistoricoUmidadeSolo historicoUmidadeSolo) {
+    public Node(int id, String nome, int temperatura, int umidade_ar, int umidade_solo, String status, HistoricoTemperatura historicoTemperatura, HistoricoUmidadeAr historicoUmidadeAr, HistoricoUmidadeSolo historicoUmidadeSolo) {
         this.id = id;
         this.nome = nome;
         this.temperatura = temperatura;
@@ -104,27 +104,27 @@ public class Node {
         this.nome = nome;
     }
 
-    public String getTemperatura() {
+    public Integer getTemperatura() {
         return temperatura;
     }
 
-    public void setTemperatura(String temperatura) {
+    public void setTemperatura(Integer temperatura) {
         this.temperatura = temperatura;
     }
 
-    public String getUmidade_ar() {
+    public Integer getUmidade_ar() {
         return umidade_ar;
     }
 
-    public void setUmidade_ar(String umidade_ar) {
+    public void setUmidade_ar(Integer umidade_ar) {
         this.umidade_ar = umidade_ar;
     }
 
-    public String getUmidade_solo() {
+    public Integer getUmidade_solo() {
         return umidade_solo;
     }
 
-    public void setUmidade_solo(String umidade_solo) {
+    public void setUmidade_solo(Integer umidade_solo) {
         this.umidade_solo = umidade_solo;
     }
 }

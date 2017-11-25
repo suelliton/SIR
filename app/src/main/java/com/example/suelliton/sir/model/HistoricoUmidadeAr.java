@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 public class HistoricoUmidadeAr {
 
-    private ArrayList<String> dia;
-    private ArrayList<String> hora;
-    private ArrayList<String> minuto;
+    private ArrayList<Integer> dia;
+    private ArrayList<Integer> hora;
+    private ArrayList<Integer> minuto;
 
     @Override
     public String toString() {
@@ -25,36 +25,34 @@ public class HistoricoUmidadeAr {
     public HistoricoUmidadeAr() {
     }
 
-    public HistoricoUmidadeAr(ArrayList<String> dia, ArrayList<String> hora, ArrayList<String> minuto) {
+    public HistoricoUmidadeAr(ArrayList<Integer> dia, ArrayList<Integer> hora, ArrayList<Integer> minuto) {
         this.dia = dia;
         this.hora = hora;
         this.minuto = minuto;
 
     }
 
-    public ArrayList<String> getDia() {
+    public ArrayList<Integer> getDia() {
         return dia;
     }
 
-    public void setDia(ArrayList<String> dia) {
+    public void setDia(ArrayList<Integer> dia) {
         this.dia = dia;
     }
 
-    public ArrayList<String> getHora() {
+    public ArrayList<Integer> getHora() {
         return hora;
     }
 
-    public void setHora(ArrayList<String> hora) {
+    public void setHora(ArrayList<Integer> hora) {
         this.hora = hora;
     }
 
-    public ArrayList<String> getMinuto() {
+    public ArrayList<Integer> getMinuto() {
         return minuto;
     }
 
-    public void setMinuto(ArrayList<String> minuto) {
+    public void setMinuto(ArrayList<Integer> minuto) {
         this.minuto = minuto;
     }
-
-
 }

@@ -25,7 +25,7 @@ public class Splash extends AppCompatActivity implements Runnable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         database = FirebaseDatabase.getInstance();
-        //database.setPersistenceEnabled(true);
+        database.setPersistenceEnabled(true);
         nodeReference = database.getReference("Node");
        // historicoReference = database.getReference("Historico");
 
@@ -43,18 +43,18 @@ public class Splash extends AppCompatActivity implements Runnable {
     public void  createReferences(){
 
 
-        ArrayList<String> dia = new ArrayList<>();
-        ArrayList<String> hora = new ArrayList<>();
-        ArrayList<String> minuto = new ArrayList<>();
+        ArrayList<Integer> dia = new ArrayList<>();
+        ArrayList<Integer> hora = new ArrayList<>();
+        ArrayList<Integer> minuto = new ArrayList<>();
         Random gerador = new Random();
         for(int i=0;i<24;i++){
-            dia.add(String.valueOf(gerador.nextInt(40)));
+            dia.add(gerador.nextInt(40));
         }
         for(int i=0;i<60;i++){
-            hora.add(String.valueOf(gerador.nextInt(40)));
+            hora.add(gerador.nextInt(40));
         }
         for(int i=0;i<60;i++){
-            minuto.add(String.valueOf(gerador.nextInt(40)));
+            minuto.add(gerador.nextInt(40));
         }
 
 
@@ -62,8 +62,7 @@ public class Splash extends AppCompatActivity implements Runnable {
         HistoricoTemperatura historicoTemperatura = new HistoricoTemperatura(dia,hora,minuto);
         HistoricoUmidadeAr historicoUmidadeAr = new HistoricoUmidadeAr(dia,hora,minuto);
         HistoricoUmidadeSolo historicoUmidadeSolo = new HistoricoUmidadeSolo(dia,hora,minuto);
-
-        Node node = new Node(1,"Raspberry3","30","30","30","ligado",historicoTemperatura,historicoUmidadeAr,historicoUmidadeSolo);
+        Node node = new Node(1,"Raspberry3",30,30,30,"ligado",historicoTemperatura,historicoUmidadeAr,historicoUmidadeSolo);
         nodeReference.push().setValue(node);
 
     }

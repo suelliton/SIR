@@ -9,9 +9,9 @@ import java.util.ArrayList;
 public class HistoricoTemperatura {
 
 
-        private ArrayList<String> dia;
-        private ArrayList<String> hora;
-        private ArrayList<String> minuto;
+        private ArrayList<Integer> dia;
+        private ArrayList<Integer> hora;
+        private ArrayList<Integer> minuto;
 
         @Override
         public String toString() {
@@ -26,36 +26,34 @@ public class HistoricoTemperatura {
         public HistoricoTemperatura() {
         }
 
-        public HistoricoTemperatura(ArrayList<String> dia, ArrayList<String> hora, ArrayList<String> minuto) {
+        public HistoricoTemperatura(ArrayList<Integer> dia, ArrayList<Integer> hora, ArrayList<Integer> minuto) {
             this.dia = dia;
             this.hora = hora;
             this.minuto = minuto;
 
         }
 
-        public ArrayList<String> getDia() {
-            return dia;
-        }
+    public ArrayList<Integer> getDia() {
+        return dia;
+    }
 
-        public void setDia(ArrayList<String> dia) {
-            this.dia = dia;
-        }
+    public void setDia(ArrayList<Integer> dia) {
+        this.dia = dia;
+    }
 
-        public ArrayList<String> getHora() {
-            return hora;
-        }
+    public ArrayList<Integer> getHora() {
+        return hora;
+    }
 
-        public void setHora(ArrayList<String> hora) {
-            this.hora = hora;
-        }
+    public void setHora(ArrayList<Integer> hora) {
+        this.hora = hora;
+    }
 
-        public ArrayList<String> getMinuto() {
-            return minuto;
-        }
+    public ArrayList<Integer> getMinuto() {
+        return minuto;
+    }
 
-        public void setMinuto(ArrayList<String> minuto) {
-            this.minuto = minuto;
-        }
-
-
+    public void setMinuto(ArrayList<Integer> minuto) {
+        this.minuto = minuto;
+    }
 }

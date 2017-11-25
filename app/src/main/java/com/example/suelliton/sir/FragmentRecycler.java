@@ -63,7 +63,7 @@ public class FragmentRecycler extends Fragment {
 
                 for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
                     Node node = snapshot.getValue(Node.class);
-                    node.setKey(snapshot.getKey().toString());
+                    node.setKey(snapshot.getKey());
                     Log.i("nodes",node.getKey()+"");
                    listaNodes.add(node);
                 }

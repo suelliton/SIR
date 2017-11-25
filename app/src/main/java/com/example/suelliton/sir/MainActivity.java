@@ -7,8 +7,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.widget.TableLayout;
 
+import com.example.suelliton.sir.model.HistoricoTemperatura;
+import com.example.suelliton.sir.model.HistoricoUmidadeAr;
+import com.example.suelliton.sir.model.HistoricoUmidadeSolo;
 import com.example.suelliton.sir.model.Node;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.suelliton.sir.FragmentGrafico.historicoTemperatura;
 import static com.example.suelliton.sir.FragmentGrafico.historicoUmidadeAr;
@@ -25,18 +30,19 @@ import static com.example.suelliton.sir.FragmentGrafico.keyClicado;
 
 public class MainActivity extends AppCompatActivity {
     static TabLayout tabLayout;
-
+    ViewPager viewPager;
     private FirebaseDatabase database ;
     private DatabaseReference nodeReference ;
     private ValueEventListener childValueNode;
+    private List<Node> listaNodes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         database = FirebaseDatabase.getInstance();
         nodeReference = database.getReference("Node");
-
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        listaNodes = new ArrayList<>();
+        viewPager = (ViewPager) findViewById(R.id.pager);
         PagerAdapter pagerAdapter = new FixedTabsPageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
 
@@ -56,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
                         break;
                     case 1:
-                        preencheGraficos();
+                        getDadosFirebase();
                         break;
                     case 2:
 
@@ -69,29 +75,28 @@ public class MainActivity extends AppCompatActivity {
             public void onPageScrollStateChanged(int state) {
             }
         });
+        getDadosFirebase();
 
-        preencheGraficos();
+
 
 
     }
-
-    public void preencheGraficos(){
+    public void getDadosFirebase(){
         childValueNode = nodeReference.child("Node/").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<String> dia = new ArrayList<>();
+
                 for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
-
-                    Log.i("clicado",snapshot.getKey().toString()+"");
-                    if (snapshot.getKey().equals(keyClicado)) {
-
+                    Node node = snapshot.getValue(Node.class);
+                    node.setKey(snapshot.getValue(Node.class).getKey());
+                    listaNodes.add(node);
+                    if(snapshot.getKey().equals(keyClicado)){
                         historicoTemperatura = snapshot.getValue(Node.class).getHistoricoTemperatura();
                         historicoUmidadeAr = snapshot.getValue(Node.class).getHistoricoUmidadeAr();
                         historicoUmidadeSolo = snapshot.getValue(Node.class).getHistoricoUmidadeSolo();
-
-                        Log.i("historico", "temperatura:" + historicoTemperatura.toString() + "umidade" + historicoUmidadeAr.toString() + "solo" + historicoUmidadeSolo.toString());
-                        //setaGrafico2(historicoTemperatura, historicoUmidadeAr, historicoUmidadeSolo);
+                        //setaGrafico2(historicoTemperatura,historicoUmidadeAr,historicoUmidadeSolo);
                     }
+
                 }
 
             }
@@ -103,6 +108,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
         nodeReference.addValueEventListener(childValueNode);
+
+
+
+        if(historicoTemperatura == null){
+            historicoTemperatura = new HistoricoTemperatura(new ArrayList<Integer>(),new ArrayList<Integer>(),new ArrayList<Integer>());
+            historicoUmidadeAr = new HistoricoUmidadeAr(new ArrayList<Integer>(),new ArrayList<Integer>(),new ArrayList<Integer>());
+            historicoUmidadeSolo = new HistoricoUmidadeSolo(new ArrayList<Integer>(),new ArrayList<Integer>(),new ArrayList<Integer>());
+
+        }
     }
+
+
 
 }
