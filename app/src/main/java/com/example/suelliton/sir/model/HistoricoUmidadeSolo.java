@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by suelliton on 22/11/2017.
  */
 
-public class HistoricoUmidadeSolo {
+public class HistoricoUmidadeSolo extends Historico {
 
 
         private ArrayList<Integer> dia;

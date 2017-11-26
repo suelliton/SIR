@@ -10,16 +10,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.suelliton.sir.model.Node;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.suelliton.sir.FragmentGrafico.keyClicado;
@@ -35,29 +31,28 @@ public class NodeAdapter extends RecyclerView.Adapter {
     private FirebaseDatabase database ;
     private DatabaseReference nodeReference ;
 
-    public NodeAdapter(Context context, List<Node> aux){
+    public NodeAdapter(Context context, List<Node> lista){
         this.context = context;
-        this.listaNodes = aux;
-
+        this.listaNodes = lista;
     }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        //infla layout node_inflate
         View view = LayoutInflater.from(context).inflate(R.layout.node_inflate,parent,false);
         NodeViewHolder holder = new NodeViewHolder(view);
         return holder;
     }
-
-
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        database = FirebaseDatabase.getInstance();
-        nodeReference = database.getReference("Node");
-        final NodeViewHolder nodeHolder = (NodeViewHolder) holder;
+        database = FirebaseDatabase.getInstance();//pega uma instancia do banco
+        nodeReference = database.getReference("Node");//pega referencia node
+        final NodeViewHolder nodeHolder = (NodeViewHolder) holder;//faz cast do holder para nodeViewHolder
+        //seta os valores nas views pegando dos elementos nodes da lista que recebeu no construtor
         nodeHolder.node_temperatura.setText(listaNodes.get(position).getTemperatura()+"°");
         nodeHolder.node_umidade_ar.setText(listaNodes.get(position).getUmidade_ar()+"%");
         nodeHolder.node_umidade_solo.setText(listaNodes.get(position).getUmidade_solo()+"%");
         nodeHolder.node_nome.setText(listaNodes.get(position).getNome());
-
+        //listener de status para mudar a cor do dispositivo
         nodeReference.child(listaNodes.get(position).getKey()).child("status").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -67,19 +62,16 @@ public class NodeAdapter extends RecyclerView.Adapter {
                             nodeHolder.node_status.setChecked(true);
                             nodeHolder.row.setBackgroundColor(Color.parseColor("#0df009"));
                         } else {
-
                             nodeHolder.node_status.setChecked(false);
                             nodeHolder.row.setBackgroundColor(Color.parseColor("#E0FFFF"));
                         }
                     }
-
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
-
+        //verifica o click no botao de status e trata e seta no firebase se esta ativado ou não
         nodeHolder.node_status.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,9 +82,18 @@ public class NodeAdapter extends RecyclerView.Adapter {
                 }
             }
         });
-
+        //verifica o click na row_clicavel e seta a keyClicado  e chama o fragment de graficos
         final String clicado = listaNodes.get(position).getKey();
         nodeHolder.row_clicavel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                keyClicado = clicado;
+                Log.i("clicado",keyClicado);
+                MainActivity.tabLayout.getTabAt(1).select();
+            }
+        });
+        //replica a função acima para chamar o grafico só que clicando no nome do dispositivo
+        nodeHolder.node_nome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 keyClicado = clicado;

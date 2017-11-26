@@ -33,34 +33,25 @@ public class FragmentRecycler extends Fragment {
     View view;
     private NodeAdapter nodeAdapter;
     private FirebaseDatabase database ;
-    private DatabaseReference nodeReference ;
-
-    private ValueEventListener valueEventNode;
     private List<Node> listaNodes;
     RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
         database = FirebaseDatabase.getInstance();
-        nodeReference = database.getReference("Node");
-
         view = inflater.inflate(R.layout.fragment_recycler_inflate,container,false);
-
         recyclerView =  view.findViewById(R.id.recycler);
         listaNodes = new ArrayList<>();
-
 
         nodeAdapter = new NodeAdapter(view.getContext(),listaNodes);
         recyclerView.setAdapter(nodeAdapter);
         RecyclerView.LayoutManager layout = new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layout);
 
-
         database.getReference().child("Node").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 listaNodes.removeAll(listaNodes);
-
                 for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
                     Node node = snapshot.getValue(Node.class);
                     node.setKey(snapshot.getKey());
@@ -69,37 +60,11 @@ public class FragmentRecycler extends Fragment {
                 }
                 nodeAdapter.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
         return view;
     }
-    private void getAllTask(DataSnapshot dataSnapshot){
-
-            final Node node = dataSnapshot.getValue(Node.class);
-            listaNodes.add(node);
-            NodeAdapter na = new NodeAdapter(view.getContext(), listaNodes);
-            recyclerView.setAdapter(na);
-
-    }
-
-
-
 
 }
