@@ -1,5 +1,6 @@
 package com.example.suelliton.sir;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -223,9 +224,10 @@ public class FragmentGrafico extends Fragment {
         LineGraphSeries<DataPoint> seriesUmidadeAr = new LineGraphSeries<>(dataPointUmidaddeAr);
         LineGraphSeries<DataPoint> seriesUmidadeSolo = new LineGraphSeries<>(dataPointUmidadeSolo);
 
-      /*  seriesTemperatura.setAnimated(true);
+        seriesTemperatura.setAnimated(true);
         seriesUmidadeAr.setAnimated(true);
-        seriesUmidadeSolo.setAnimated(true);*/
+        seriesUmidadeSolo.setAnimated(true);
+
 
         graphTemperatura.removeAllSeries();
         graphUmidadeAr.removeAllSeries();

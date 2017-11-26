@@ -60,10 +60,11 @@ public class NodeAdapter extends RecyclerView.Adapter {
                     if(status != null) {
                         if (status.equals("ligado")) {
                             nodeHolder.node_status.setChecked(true);
-                            nodeHolder.row.setBackgroundColor(Color.parseColor("#0df009"));
+                            //nodeHolder.row.setBackgroundColor(Color.parseColor("#0df009"));
+                            nodeHolder.row.setBackgroundColor(Color.argb(50,0,255,0));
                         } else {
                             nodeHolder.node_status.setChecked(false);
-                            nodeHolder.row.setBackgroundColor(Color.parseColor("#E0FFFF"));
+                            nodeHolder.row.setBackgroundColor(Color.parseColor("#FFFFFF"));
                         }
                     }
             }
