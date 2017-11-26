@@ -2,8 +2,15 @@
 
 <android.widget.LinearLayout
     android:orientation="vertical"
+    android:id="@+id/linearLayoutPai"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/nameClicado"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,21 +25,21 @@
                 android:id="@+id/radio_dia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3.5"
                 android:text="Dia" />
 
             <RadioButton
                 android:id="@+id/radio_hora"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3.5"
                 android:text="Hora" />
 
             <RadioButton
                 android:id="@+id/radio_minuto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="4"
                 android:text="Minuto" />
         </RadioGroup>
 
@@ -49,13 +56,18 @@
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
         android:layout_height="180dip"
+        android:layout_marginEnd="10dp"
         android:id="@+id/graph_temperatura" />
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
         android:layout_height="180dip"
+        android:layout_marginStart="-10dp"
+        android:layout_marginEnd="10dp"
         android:id="@+id/graph_umidade_ar" />
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
+        android:layout_marginStart="-10dp"
+        android:layout_marginEnd="10dp"
         android:layout_height="180dip"
         android:id="@+id/graph_umidade_solo" />
 

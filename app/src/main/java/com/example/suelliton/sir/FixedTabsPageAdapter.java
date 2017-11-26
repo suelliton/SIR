@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import static com.example.suelliton.sir.NodeAdapter.nameClicado;
+
 /**
  * Created by suelliton on 14/10/2017.
  */
@@ -21,7 +23,7 @@ public class FixedTabsPageAdapter extends FragmentPagerAdapter {
             case 1:
                 return new FragmentGrafico();
             case 2:
-                return new FragmentRecycler();
+                return new FragmentGastos();
             default:
                 return null;
 
@@ -40,9 +42,9 @@ public class FixedTabsPageAdapter extends FragmentPagerAdapter {
             case 0:
                 return "Dispositivos";
             case 1:
-                return "Graficos";
+                return "Histórico";
             case 2:
-                return "Localização";
+                return "Gastos";
             default:
                 return null;
         }

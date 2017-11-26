@@ -6,6 +6,10 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import com.example.suelliton.sir.model.HistoricoTemperatura;
 import com.example.suelliton.sir.model.HistoricoUmidadeAr;
 import com.example.suelliton.sir.model.HistoricoUmidadeSolo;
@@ -21,6 +25,7 @@ import static com.example.suelliton.sir.FragmentGrafico.historicoTemperatura;
 import static com.example.suelliton.sir.FragmentGrafico.historicoUmidadeAr;
 import static com.example.suelliton.sir.FragmentGrafico.historicoUmidadeSolo;
 import static com.example.suelliton.sir.FragmentGrafico.keyClicado;
+import static com.example.suelliton.sir.NodeAdapter.nameClicado;
 
 public class MainActivity extends AppCompatActivity {
     static TabLayout tabLayout;
@@ -56,6 +61,14 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 1:
                         getDadosFirebase();
+                        TextView tx_nameClicado = (TextView) findViewById(R.id.nameClicado);
+                        tx_nameClicado.setText(nameClicado);
+                        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linearLayoutPai);
+                        if(nameClicado.equals("")){
+                            linearLayout.setVisibility(View.INVISIBLE);
+                        }else{
+                            linearLayout.setVisibility(View.VISIBLE);
+                        }
                         break;
                     case 2:
                         break;

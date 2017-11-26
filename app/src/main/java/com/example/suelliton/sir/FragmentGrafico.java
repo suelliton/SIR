@@ -7,8 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+
 import com.example.suelliton.sir.model.HistoricoTemperatura;
 import com.example.suelliton.sir.model.HistoricoUmidadeAr;
 import com.example.suelliton.sir.model.HistoricoUmidadeSolo;
@@ -19,6 +22,8 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.suelliton.sir.NodeAdapter.nameClicado;
 
 
 /**
@@ -53,6 +58,9 @@ public class FragmentGrafico extends Fragment {
         setFind();
         setListeners();
 
+
+
+
         return view;
     }
     public void  setFind(){
@@ -60,6 +68,7 @@ public class FragmentGrafico extends Fragment {
         radioButtonHora= (RadioButton) view.findViewById(R.id.radio_hora);
         radioButtonMinuto = (RadioButton) view.findViewById(R.id.radio_minuto);
         radioButtonMinuto.toggle();//seta o inicio para o minuto ficar selecionado
+
     }
     public void setListeners(){
         //cada botao dia hora e minuto chama a setagrafico com os parametros globais e seta a op que é usada lá

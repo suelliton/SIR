@@ -30,6 +30,7 @@ public class NodeAdapter extends RecyclerView.Adapter {
     private List<Node> listaNodes;
     private FirebaseDatabase database ;
     private DatabaseReference nodeReference ;
+    public static String nameClicado = "" ;
 
     public NodeAdapter(Context context, List<Node> lista){
         this.context = context;
@@ -89,6 +90,7 @@ public class NodeAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View view) {
                 keyClicado = clicado;
+                nameClicado = listaNodes.get(position).getNome();
                 Log.i("clicado",keyClicado);
                 MainActivity.tabLayout.getTabAt(1).select();
             }
@@ -98,6 +100,7 @@ public class NodeAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View view) {
                 keyClicado = clicado;
+                nameClicado = listaNodes.get(position).getNome();
                 Log.i("clicado",keyClicado);
                 MainActivity.tabLayout.getTabAt(1).select();
             }
