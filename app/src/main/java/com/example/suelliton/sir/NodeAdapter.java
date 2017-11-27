@@ -3,10 +3,12 @@ package com.example.suelliton.sir;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -18,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.List;
 
+import static android.os.SystemClock.elapsedRealtime;
 import static com.example.suelliton.sir.FragmentGrafico.keyClicado;
 
 
@@ -31,6 +34,7 @@ public class NodeAdapter extends RecyclerView.Adapter {
     private FirebaseDatabase database ;
     private DatabaseReference nodeReference ;
     public static String nameClicado = "" ;
+    static  int  duracao;
 
     public NodeAdapter(Context context, List<Node> lista){
         this.context = context;
@@ -53,6 +57,19 @@ public class NodeAdapter extends RecyclerView.Adapter {
         nodeHolder.node_umidade_ar.setText(listaNodes.get(position).getUmidade_ar()+"%");
         nodeHolder.node_umidade_solo.setText(listaNodes.get(position).getUmidade_solo()+"%");
         nodeHolder.node_nome.setText(listaNodes.get(position).getNome());
+
+
+        //aplica o formato hora:minuto:segundo
+        //cron.setText(DateFormat.format("00:mm:ss", 0));
+        nodeHolder.node_cronometro.setBase(elapsedRealtime() );
+        nodeHolder.node_cronometro.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+            @Override
+            public void onChronometerTick(Chronometer chronometer) {
+                //Seta o tempo de início - o tempo de execução do cronômetro
+                nodeHolder.node_cronometro.setText(DateFormat.format("00:mm:ss",  elapsedRealtime() - chronometer.getBase()));            }
+        });
+
+
         //listener de status para mudar a cor do dispositivo
         nodeReference.child(listaNodes.get(position).getKey()).child("status").addValueEventListener(new ValueEventListener() {
             @Override
@@ -63,9 +80,12 @@ public class NodeAdapter extends RecyclerView.Adapter {
                             nodeHolder.node_status.setChecked(true);
                             //nodeHolder.row.setBackgroundColor(Color.parseColor("#0df009"));
                             nodeHolder.row.setBackgroundColor(Color.argb(50,0,255,0));
+                            nodeHolder.node_cronometro.setVisibility(View.VISIBLE);
+
                         } else {
                             nodeHolder.node_status.setChecked(false);
                             nodeHolder.row.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            nodeHolder.node_cronometro.setVisibility(View.INVISIBLE);
                         }
                     }
             }
@@ -73,14 +93,26 @@ public class NodeAdapter extends RecyclerView.Adapter {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
+
+
+
+
+
+
         //verifica o click no botao de status e trata e seta no firebase se esta ativado ou não
         nodeHolder.node_status.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(nodeHolder.node_status.isChecked()){
                     nodeReference.child(listaNodes.get(position).getKey()).child("status").setValue("ligado");
+                    iniciarCronometro(nodeHolder.node_cronometro);
                 }else{
                     nodeReference.child(listaNodes.get(position).getKey()).child("status").setValue("desligado");
+                    int tempoAtivo = pararCronometro(nodeHolder.node_cronometro);
+                    int tempoGravado = listaNodes.get(position).getTempoAtivo();//pego o tempo que ja está gravado no firebase
+                    //incremento o tempo ativo mais o que ja estava no firebase
+                    nodeReference.child(listaNodes.get(position).getKey()).child("tempoAtivo").setValue(tempoGravado+tempoAtivo);
                 }
             }
         });
@@ -106,6 +138,18 @@ public class NodeAdapter extends RecyclerView.Adapter {
             }
         });
     }
+    private void iniciarCronometro(Chronometer cron){
+                cron.setBase(elapsedRealtime());
+                cron.start();
+    }
+
+    private int pararCronometro(Chronometer cron){
+        cron.stop();
+        duracao = (int) (elapsedRealtime() - cron.getBase());
+        Log.i("duracao",duracao+"");
+        return duracao/1000;
+    }
+
     @Override
     public int getItemCount() {
         return listaNodes.size();
@@ -123,6 +167,7 @@ public class NodeAdapter extends RecyclerView.Adapter {
         final Switch node_status;
         final LinearLayout row;
         final LinearLayout row_clicavel;
+        final Chronometer node_cronometro;
         public NodeViewHolder(View view){
             super(view);
             node_temperatura = view.findViewById(R.id.text_temperatura);
@@ -132,6 +177,7 @@ public class NodeAdapter extends RecyclerView.Adapter {
             node_status = view.findViewById(R.id.switch_status);
             row = view.findViewById(R.id.row);
             row_clicavel = view.findViewById(R.id.row_clicavel);
+            node_cronometro = view.findViewById(R.id.cronometro);
         }
 
     }
