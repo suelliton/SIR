@@ -19,6 +19,15 @@ public class Node {
     private HistoricoUmidadeAr historicoUmidadeAr;
     private HistoricoUmidadeSolo historicoUmidadeSolo;
     private Integer tempoAtivo;
+    private Integer vazao;
+
+    public Integer getVazao() {
+        return vazao;
+    }
+
+    public void setVazao(Integer vazao) {
+        this.vazao = vazao;
+    }
 
     public Node(int id, String nome, int temperatura, int umidade_ar, int umidade_solo, String status, HistoricoTemperatura historicoTemperatura, HistoricoUmidadeAr historicoUmidadeAr, HistoricoUmidadeSolo historicoUmidadeSolo) {
         this.id = id;
