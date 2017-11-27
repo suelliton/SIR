@@ -66,7 +66,7 @@ public class NodeAdapter extends RecyclerView.Adapter {
             @Override
             public void onChronometerTick(Chronometer chronometer) {
                 //Seta o tempo de início - o tempo de execução do cronômetro
-                nodeHolder.node_cronometro.setText(DateFormat.format("00:mm:ss",  elapsedRealtime() - chronometer.getBase()));            }
+                nodeHolder.node_cronometro.setText(DateFormat.format("00:mm:ss",  listaNodes.get(position).getTempoAtivo()));            }
         });
 
 
@@ -112,7 +112,7 @@ public class NodeAdapter extends RecyclerView.Adapter {
                     int tempoAtivo = pararCronometro(nodeHolder.node_cronometro);
                     int tempoGravado = listaNodes.get(position).getTempoAtivo();//pego o tempo que ja está gravado no firebase
                     //incremento o tempo ativo mais o que ja estava no firebase
-                    nodeReference.child(listaNodes.get(position).getKey()).child("tempoAtivo").setValue(tempoGravado+tempoAtivo);
+                    //nodeReference.child(listaNodes.get(position).getKey()).child("tempoAtivo").setValue(tempoGravado+tempoAtivo);
                 }
             }
         });
@@ -147,7 +147,7 @@ public class NodeAdapter extends RecyclerView.Adapter {
         cron.stop();
         duracao = (int) (elapsedRealtime() - cron.getBase());
         Log.i("duracao",duracao+"");
-        return duracao/1000;
+        return duracao;
     }
 
     @Override
