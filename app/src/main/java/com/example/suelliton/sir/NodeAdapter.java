@@ -66,8 +66,11 @@ public class NodeAdapter extends RecyclerView.Adapter {
             @Override
             public void onChronometerTick(Chronometer chronometer) {
                 //Seta o tempo de início - o tempo de execução do cronômetro
-                nodeHolder.node_cronometro.setText(DateFormat.format("00:mm",  listaNodes.get(position).getTempoAtivo()));            }
-        });
+
+                    nodeHolder.node_cronometro.setText(DateFormat.format("00:mm", listaNodes.get(position).getTempoAtivo()));
+
+            }
+            });
 
 
         //listener de status para mudar a cor do dispositivo

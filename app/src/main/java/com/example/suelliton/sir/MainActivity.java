@@ -72,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 2:
                         break;
+                    case 3:
+                        break;
                     default:
                         return;
                 }

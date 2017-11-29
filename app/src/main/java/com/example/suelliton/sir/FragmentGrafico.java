@@ -42,6 +42,10 @@ public class FragmentGrafico extends Fragment {
     public static HistoricoUmidadeAr historicoUmidadeAr;
     public static HistoricoUmidadeSolo historicoUmidadeSolo;
 
+    ArrayList<Integer> listaTemperatura ;
+    ArrayList<Integer> listaUmidadeAr ;
+    ArrayList<Integer> listaUmidadeSolo ;
+
     GraphView graphTemperatura ;
     GraphView graphUmidadeAr ;
     GraphView graphUmidadeSolo ;
@@ -79,7 +83,9 @@ public class FragmentGrafico extends Fragment {
         radioButtonHora= (RadioButton) view.findViewById(R.id.radio_hora);
         radioButtonMinuto = (RadioButton) view.findViewById(R.id.radio_minuto);
         radioButtonMinuto.toggle();//seta o inicio para o minuto ficar selecionado
-
+        listaTemperatura = new ArrayList<>();
+        listaUmidadeAr = new ArrayList<>();
+        listaUmidadeSolo = new ArrayList<>();
     }
     public void setListeners(){
         //cada botao dia hora e minuto chama a setagrafico com os parametros globais e seta a op que é usada lá
@@ -119,9 +125,9 @@ public class FragmentGrafico extends Fragment {
 
     public  void setaGrafico(HistoricoTemperatura historicoTemperatura, HistoricoUmidadeAr historicoUmidadeAr, HistoricoUmidadeSolo historicoUmidadeSolo){
 
-        ArrayList<Integer> listaTemperatura = new ArrayList<>();
-        ArrayList<Integer> listaUmidadeAr = new ArrayList<>();
-        ArrayList<Integer> listaUmidadeSolo = new ArrayList<>();
+        //listaTemperatura.removeAll(listaTemperatura);
+        //listaUmidadeAr.removeAll(listaUmidadeAr);
+        //listaUmidadeSolo.removeAll(listaUmidadeSolo);
 
        switch (radioGroup.getCheckedRadioButtonId()){
            case R.id.radio_dia:

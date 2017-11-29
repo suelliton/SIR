@@ -64,10 +64,13 @@ public class FragmentGastos extends Fragment {
     public void calculaGasto(){
         int gastoAgua = 0;
         double gastoKwh = 0 ;
-        for (Node node: listaNodes) {
-            gastoAgua = gastoAgua + node.getVazao()* (node.getTempoAtivo()/60000)/60;
-            gastoKwh = gastoKwh + (node.getConsumoWatt()/1000) * (node.getTempoAtivo()/60000)/60;
+        if(listaNodes.size() > 0){
+            for (Node node: listaNodes) {
+                gastoAgua = gastoAgua + node.getVazao()* (node.getTempoAtivo()/60000)/60;
+                gastoKwh = gastoKwh + (node.getConsumoWatt()/1000) * (node.getTempoAtivo()/60000)/60;
+            }
         }
+
         TextView textAgua = (TextView) view.findViewById(R.id.text_agua);
         textAgua.setText(gastoAgua+" Litros");
         TextView textKwh = (TextView) view.findViewById(R.id.text_kwh);
