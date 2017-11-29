@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.example.suelliton.sir.model.Node;
@@ -33,7 +35,6 @@ public class FragmentGastos extends Fragment {
         view = inflater.inflate(R.layout.fragment_recycler_gasto,container,false);
         database = FirebaseDatabase.getInstance();
         listaNodes = new ArrayList<>();
-
 
 
 

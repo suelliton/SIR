@@ -6,4 +6,5 @@
     <color name="corTituloTabela">#ce93d8</color>
     <color name="itemSelecionadoTabela">#ce93d8</color>
     <color name="corTabela">#f3e5f5</color>
+    <color name="preto">#000</color>
 </resources>

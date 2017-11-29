@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -40,6 +42,10 @@ public class FragmentGrafico extends Fragment {
     public static HistoricoUmidadeAr historicoUmidadeAr;
     public static HistoricoUmidadeSolo historicoUmidadeSolo;
 
+    GraphView graphTemperatura ;
+    GraphView graphUmidadeAr ;
+    GraphView graphUmidadeSolo ;
+
     RadioGroup radioGroup ;
     RadioButton radioButtonDia ;
     RadioButton radioButtonHora ;
@@ -54,16 +60,21 @@ public class FragmentGrafico extends Fragment {
         view = inflater.inflate(R.layout.fragment_recycler_grafico,container,false);
         listaNodes = new ArrayList<>();//inicializa lista
 
+
+
         atualizaGrafico();
         setFind();
         setListeners();
 
 
 
-
         return view;
     }
     public void  setFind(){
+        graphTemperatura = (GraphView) view.findViewById(R.id.graph_temperatura);
+        graphUmidadeAr = (GraphView) view.findViewById(R.id.graph_umidade_ar);
+        graphUmidadeSolo = (GraphView) view.findViewById(R.id.graph_umidade_solo);
+        radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
         radioButtonDia = (RadioButton) view.findViewById(R.id.radio_dia);
         radioButtonHora= (RadioButton) view.findViewById(R.id.radio_hora);
         radioButtonMinuto = (RadioButton) view.findViewById(R.id.radio_minuto);
@@ -108,11 +119,6 @@ public class FragmentGrafico extends Fragment {
 
     public  void setaGrafico(HistoricoTemperatura historicoTemperatura, HistoricoUmidadeAr historicoUmidadeAr, HistoricoUmidadeSolo historicoUmidadeSolo){
 
-       radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
-       radioButtonDia = (RadioButton) view.findViewById(R.id.radio_dia);
-       radioButtonHora = (RadioButton) view.findViewById(R.id.radio_hora);
-       radioButtonMinuto = (RadioButton) view.findViewById(R.id.radio_minuto);
-
         ArrayList<Integer> listaTemperatura = new ArrayList<>();
         ArrayList<Integer> listaUmidadeAr = new ArrayList<>();
         ArrayList<Integer> listaUmidadeSolo = new ArrayList<>();
@@ -155,11 +161,8 @@ public class FragmentGrafico extends Fragment {
             cont++;
         }
 
-        GraphView graphTemperatura = (GraphView) view.findViewById(R.id.graph_temperatura);
-        GraphView graphUmidadeAr = (GraphView) view.findViewById(R.id.graph_umidade_ar);
-        GraphView graphUmidadeSolo = (GraphView) view.findViewById(R.id.graph_umidade_solo);
 
-        switch (op){
+        switch (op){//op é setado pelos cliques nos radio buttons
             case 1:
                 setTamanhoGrafico(graphTemperatura,0,24,0,50);
                 setTamanhoGrafico(graphUmidadeAr,0,24,0,100);
@@ -182,17 +185,38 @@ public class FragmentGrafico extends Fragment {
         LineGraphSeries<DataPoint> seriesUmidadeAr = new LineGraphSeries<>(dataPointUmidaddeAr);
         LineGraphSeries<DataPoint> seriesUmidadeSolo = new LineGraphSeries<>(dataPointUmidadeSolo);
 
-        graphTemperatura.removeAllSeries();
-        graphUmidadeAr.removeAllSeries();
-        graphUmidadeSolo.removeAllSeries();
 
-        graphTemperatura.setTitle("Temperatura");
-        graphUmidadeAr.setTitle("Umidade do ar");
-        graphUmidadeSolo.setTitle("Umidade do solo");
+        setColorsSeries(seriesTemperatura,Color.argb(255, 255, 60, 60),Color.argb(70, 204, 119, 119));
+        setColorsSeries(seriesUmidadeAr,Color.argb(255, 33,150,243),Color.argb(70, 100,181,246));
+        setColorsSeries(seriesUmidadeSolo,Color.argb(255, 63,81,181),Color.argb(70, 92,107,192));
 
-        graphTemperatura.addSeries(seriesTemperatura);
-        graphUmidadeAr.addSeries(seriesUmidadeAr);
-        graphUmidadeSolo.addSeries(seriesUmidadeSolo);
+
+
+        removeSeriesFromGraph(graphTemperatura,graphUmidadeAr,graphUmidadeSolo);
+
+        setTitlesSeries(graphTemperatura,graphUmidadeAr,graphUmidadeSolo,"Temperatura","Umidade do Ar","Umidade do solo");
+
+        addSeriesToGraph(graphTemperatura,graphUmidadeAr,graphUmidadeSolo,seriesTemperatura,seriesUmidadeAr,seriesUmidadeSolo);
+    }
+    public void addSeriesToGraph(GraphView graphView1,GraphView graphView2, GraphView graphView3,LineGraphSeries<DataPoint> series1,LineGraphSeries<DataPoint> series2,LineGraphSeries<DataPoint> series3){
+        graphView1.addSeries(series1);
+        graphView2.addSeries(series2);
+        graphView3.addSeries(series3);
+    }
+    public void removeSeriesFromGraph(GraphView graphView1,GraphView graphView2, GraphView graphView3){
+        graphView1.removeAllSeries();
+        graphView2.removeAllSeries();
+        graphView3.removeAllSeries();
+    }
+    public void setTitlesSeries(GraphView series1, GraphView series2, GraphView series3, String title1, String title2, String title3){
+        series1.setTitle("Temperatura");
+        series2.setTitle("Umidade do ar");
+        series3.setTitle("Umidade do solo");
+    }
+    public void setColorsSeries(LineGraphSeries<DataPoint> series, int colorLine,int colorBackground){
+        series.setDrawBackground(true);
+        series.setColor(colorLine);
+        series.setBackgroundColor(colorBackground);
     }
 
     public void setTamanhoGrafico(GraphView graphView,int Xmin,int Xmax,int Ymin,int Ymax){
@@ -238,6 +262,7 @@ public class FragmentGrafico extends Fragment {
         seriesUmidadeSolo.setAnimated(true);
 
 
+
         graphTemperatura.removeAllSeries();
         graphUmidadeAr.removeAllSeries();
         graphUmidadeSolo.removeAllSeries();
@@ -245,6 +270,8 @@ public class FragmentGrafico extends Fragment {
         graphTemperatura.setTitle("Temperatura");
         graphUmidadeAr.setTitle("Umidade do ar");
         graphUmidadeSolo.setTitle("Umidade do solo");
+
+
 
         graphTemperatura.addSeries(seriesTemperatura);
         graphUmidadeAr.addSeries(seriesUmidadeAr);

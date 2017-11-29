@@ -23,6 +23,8 @@ public class FixedTabsPageAdapter extends FragmentPagerAdapter {
             case 1:
                 return new FragmentGrafico();
             case 2:
+                return new FragmentPrevisao();
+            case 3:
                 return new FragmentGastos();
             default:
                 return null;
@@ -33,17 +35,19 @@ public class FixedTabsPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "Dispositivos";
+                return "Nós";
             case 1:
                 return "Histórico";
             case 2:
+                return "Previsão";
+            case 3:
                 return "Gastos";
             default:
                 return null;

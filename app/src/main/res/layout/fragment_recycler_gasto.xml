@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="31dp"
         android:text="Gasto mensal estimado"
+        android:textColor="@color/preto"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,9 +23,10 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="148dp"
         android:text="Água"
+        android:textColor="@color/preto"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,49 +35,52 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="34dp"
         android:text="Energia"
+        android:textColor="@color/preto"
         android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
         android:id="@+id/text_agua"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="42dp"
+        android:layout_marginEnd="73dp"
+        android:layout_marginTop="156dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/text_kwh"
-        app:layout_constraintEnd_toEndOf="@+id/text_financeiro"
-        app:layout_constraintStart_toStartOf="@+id/text_financeiro" />
+        android:textColor="@color/preto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_kwh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="42dp"
         android:text="TextView"
+        android:textColor="@color/preto"
         app:layout_constraintStart_toStartOf="@+id/text_agua"
-        app:layout_constraintTop_toTopOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/text_agua" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="34dp"
         android:text="Financeiro"
+        android:textColor="@color/preto"
         android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
         android:id="@+id/text_financeiro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
+        android:layout_marginTop="42dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
+        android:textColor="@color/preto"
+        app:layout_constraintStart_toStartOf="@+id/text_kwh"
+        app:layout_constraintTop_toBottomOf="@+id/text_kwh" />
 </android.support.constraint.ConstraintLayout>

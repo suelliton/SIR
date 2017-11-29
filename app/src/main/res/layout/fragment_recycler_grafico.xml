@@ -6,6 +6,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
+        android:textColor="@color/preto"
         android:id="@+id/nameClicado"
         android:textSize="20dp"
         android:gravity="center"
@@ -17,6 +18,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <RadioGroup
+            android:textColor="@color/preto"
             android:id="@+id/radioGroup"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -72,5 +74,7 @@
         android:id="@+id/graph_umidade_solo" />
 
     </LinearLayout>
+
 </android.widget.ScrollView >
+
 </android.widget.LinearLayout>

@@ -5,23 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="5dp"
-
     android:layout_margin="5dp"
     android:focusable="true"
     android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    >
+    android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:id="@+id/row"
         android:focusable="true"
         android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        >
+        android:foreground="?android:attr/selectableItemBackground">
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -37,7 +34,7 @@
                 android:textAlignment="center">
             </Chronometer>
             <TextView
-                android:textColor="@color/cardview_dark_background"
+                android:textColor="@color/preto"
                 android:gravity="center"
                 android:textSize="20dp"
                 android:id="@+id/text_nome"
@@ -52,16 +49,20 @@
                 android:text="Cronômetro:"
                 android:format="00:00"
                 android:textSize="@dimen/fonteSensor"
+                android:textColor="@color/preto"
                 android:textAlignment="center">
             </Chronometer>
         </LinearLayout>
 
         <LinearLayout
+
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="wrap_content">
 
             <LinearLayout
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:id="@+id/row_clicavel"
                 android:layout_weight="3"
                 android:orientation="horizontal"
@@ -69,9 +70,12 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:src="@drawable/ic_termometro"
-                    android:layout_width="50dp"
+                    android:layout_width="30dp"
+                    android:layout_marginStart="10dp"
                     android:layout_height="35dp" />
                 <TextView
+                    android:textColor="@color/preto"
+                    android:paddingTop="10dp"
                     android:layout_weight="3"
                     android:textSize="20dp"
                     android:id="@+id/text_temperatura"
@@ -80,9 +84,12 @@
                     android:text="29"/>
                 <ImageView
                     android:src="@drawable/ic_umidade_ar"
-                    android:layout_width="50dp"
+
+                    android:layout_width="40dp"
                     android:layout_height="35dp" />
                 <TextView
+                    android:textColor="@color/preto"
+                    android:paddingTop="10dp"
                     android:textSize="20dp"
                     android:layout_weight="2"
                     android:id="@+id/text_umidade_ar"
@@ -91,10 +98,12 @@
                     android:text="70"/>
                 <ImageView
                     android:src="@drawable/ic_umidade_solo"
-                    android:layout_width="50dp"
+                    android:layout_width="40dp"
                     android:layout_height="35dp" />
                 <TextView
+                    android:textColor="@color/preto"
                     android:textSize="20dp"
+                    android:paddingTop="10dp"
                     android:layout_weight="2"
                     android:id="@+id/text_umidade_solo"
                     android:layout_width="wrap_content"
@@ -110,7 +119,7 @@
                 android:layout_height="wrap_content">
                 <Switch
                     android:id="@+id/switch_status"
-
+                    android:textColor="@color/preto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
