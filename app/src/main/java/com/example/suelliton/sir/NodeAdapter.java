@@ -66,7 +66,7 @@ public class NodeAdapter extends RecyclerView.Adapter {
             @Override
             public void onChronometerTick(Chronometer chronometer) {
                 //Seta o tempo de início - o tempo de execução do cronômetro
-                nodeHolder.node_cronometro.setText(DateFormat.format("00:mm:ss",  listaNodes.get(position).getTempoAtivo()));            }
+                nodeHolder.node_cronometro.setText(DateFormat.format("00:mm",  listaNodes.get(position).getTempoAtivo()));            }
         });
 
 
@@ -79,7 +79,7 @@ public class NodeAdapter extends RecyclerView.Adapter {
                         if (status.equals("ligado")) {
                             nodeHolder.node_status.setChecked(true);
                             //nodeHolder.row.setBackgroundColor(Color.parseColor("#0df009"));
-                            nodeHolder.row.setBackgroundColor(Color.argb(50,0,255,0));
+                            nodeHolder.row.setBackgroundColor(Color.argb(100,178,223,219));
                             nodeHolder.node_cronometro.setVisibility(View.VISIBLE);
 
                         } else {

@@ -20,6 +20,15 @@ public class Node {
     private HistoricoUmidadeSolo historicoUmidadeSolo;
     private Integer tempoAtivo;
     private Integer vazao;
+    private double consumoWatt;
+
+    public double getConsumoWatt() {
+        return consumoWatt;
+    }
+
+    public void setConsumoWatt(double consumoWatt) {
+        this.consumoWatt = consumoWatt;
+    }
 
     public Integer getVazao() {
         return vazao;
