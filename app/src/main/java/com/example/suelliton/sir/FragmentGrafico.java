@@ -117,7 +117,7 @@ public class FragmentGrafico extends Fragment {
             @Override
             public void run() {
                 setaGrafico(historicoTemperatura,historicoUmidadeAr,historicoUmidadeSolo);
-                time = 500;
+                time = 1000;
                 atualizaGrafico();
             }
         }, time);
@@ -154,7 +154,7 @@ public class FragmentGrafico extends Fragment {
         int cont = 0;
         for (int s:listaTemperatura) {
             dataPointTemperatura[cont] = new DataPoint(cont,s);
-            cont++;
+            cont ++;
         }
         cont = 0;
         for (int s:listaUmidadeAr) {
